@@ -10,13 +10,14 @@
   ( let [card (rand-nth pack)]
   [card (remove-card card pack)]))
 
-;; should return set of cards (size= amount) and a pack without those cards
-(defn get-cards [amount pack]
-  (get-card pack))
-
+(defn get-cards [amount cards pack]
+  (cond
+    (= amount 0) [cards]
+    (> amount 0) (let [[new-card new-pack] (get-card pack)]
+                   (get-cards (- amount 1) (conj cards new-card) new-pack))))
 
 (defn deal-cards [amount pack]
-  (get-cards amount pack))
+  (get-cards amount [] pack))
 
 (defn deal-hand [player]
   (let [pack (into [] (range 52))]
@@ -26,4 +27,4 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (println (str "hello "(deal-hand "john"))))
+  (println (str "John got the following cards " (deal-hand "john"))))
