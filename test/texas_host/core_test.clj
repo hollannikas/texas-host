@@ -1,7 +1,7 @@
 (ns texas-host.core-test
-  (:require [clojure.test :refer :all]
-            [texas-host.core :refer :all]))
+  (:use [midje.sweet :refer :all])
+  (:require [texas-host.core :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(fact "`remove-card` removes a card from the pack"
+      (count (remove-card 1 [1 2 3 4])) => 3
+      (some #{1} (remove-card 1 [1 2 3 4])) => falsey)

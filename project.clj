@@ -6,4 +6,6 @@
   :dependencies [[org.clojure/clojure "1.8.0"]]
   :main ^:skip-aot texas-host.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}
+             :dev {:dependencies [[midje "1.8.3" :exclusions [org.clojure/clojure]]]
+                   :plugins [[lein-midje "3.2.1"]]}})
