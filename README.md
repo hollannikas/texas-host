@@ -1,4 +1,5 @@
 # texas-host
+[![Build Status](https://travis-ci.org/hollannikas/ssoidh-fire.svg?branch=master)](https://travis-ci.org/hollannikas/texas-host)
 
 FIXME: description
 
