@@ -39,7 +39,7 @@
 
 
 (defn translate-card [card]
-  (str (suite card) (value card)))
+  (str (suit card) (value card)))
 
 
 (defn -main
