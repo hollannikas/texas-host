@@ -21,3 +21,13 @@
 
 (fact "`value` finds the value of the card"
       )
+
+
+
+(fact "'deal-cards' deals number of cards wanted and removes them from the deck"
+      (let [deck-before (into [] (range 13))]
+      (let [[cards-dealt deck-after] (deal-cards 3 deck-before)]
+            (count cards-dealt) => 3
+            (count deck-after) => 10
+        )))
+
