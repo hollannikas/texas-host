@@ -6,6 +6,12 @@
       (count (remove-card 1 [1 2 3 4])) => 3
       (some #{1} (remove-card 1 [1 2 3 4])) => falsey)
 
+(fact "`get-card` gets a card from the pack"
+      (let [[card deck] (get-card [1 2 3 4])]
+        (count deck) => 3
+        (some #{card} deck) => falsey))
+
+
 (fact "`suit` finds the suite of the card"
       (fact "0-12 are Hearts"
             (map suit (range 0 13)) => (repeat 13 "H"))
@@ -21,3 +27,10 @@
 
 (fact "`value` finds the value of the card"
       )
+
+(fact "'deal-cards' deals number of cards wanted and removes them from the deck"
+      (let [deck-before (into [] (range 13))]
+      (let [[cards-dealt deck-after] (deal-cards 3 deck-before)]
+            (count cards-dealt) => 3
+            (count deck-after) => 10
+        )))
