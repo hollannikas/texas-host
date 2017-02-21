@@ -12,7 +12,7 @@
 
 (defn get-cards [amount cards pack]
   (cond
-    (= amount 0) [cards]
+    (= amount 0) [cards pack]
     :else (let [[new-card new-pack] (get-card pack)]
                    (get-cards (- amount 1) (conj cards new-card) new-pack))))
 
