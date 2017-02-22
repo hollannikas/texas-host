@@ -24,10 +24,10 @@
 
 
 
-(fact "'deal-cards' deals number of cards wanted and removes them from the deck"
-      (let [deck-before (into [] (range 13))]
-      (let [[cards-dealt deck-after] (deal-cards 3 deck-before)]
-            (count cards-dealt) => 3
-            (count deck-after) => 10
+(fact "'deal-cards' deals number of cards wanted and removes them from the pack"
+      (let [pack-before (into [] (range 13))]
+            (let [[cards-dealt pack-after] (deal-cards 3 pack-before)]
+                  (count cards-dealt) => 3
+                  (count pack-after) => 10
         )))
 

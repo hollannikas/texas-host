@@ -1,27 +1,26 @@
 (ns texas-host.core
   (:gen-class))
 
-(defn remove-card [card deck]
+(defn remove-card [card pack]
   (remove
     (fn [x] (= x card))
-    deck))
+    pack))
 
-(defn choose-card [deck]
-  [(rand-nth deck)])
+(defn get-card [pack]
+  ( let [card (rand-nth pack)]
+  [card (remove-card card pack)]))
 
-(defn deal-cards [amount deck]
+(defn deal-cards [amount pack]
   (cond
-    (= amount 0) [[] deck]
+    (= amount 0) [[] pack]
     :else
-    (let [[cards-before deck-before] (deal-cards (- amount 1) deck)]
-      (let [card-chosen (choose-card deck-before)]
-      (let [deck-after (remove-card card-chosen deck-before)]
-        (println "deck-after " card-chosen deck-after)
-        [(conj cards-before card-chosen) deck-after])))))
+    (let [[cards-before pack-before] (deal-cards (- amount 1) pack)]
+      (let [[card-chosen pack-after] (get-card pack-before)]
+         [(conj cards-before card-chosen) pack-after]))))
 
 (defn deal-hand [player]
-  (let [deck (into [] (range 52))]
-  (deal-cards 2 deck)))
+  (let [pack (into [] (range 52))]
+  (deal-cards 2 pack)))
 
 (defn suit [card]
   "Gets the suit of a card based on its number in the pack, ordered [H S C D]"
