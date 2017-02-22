@@ -19,9 +19,13 @@
 (defn deal-cards [amount pack]
   (get-cards amount [] pack))
 
-(defn deal-hand [player]
+(defn deal-hand [players pack]
+    (for [player players :let [[cards pack] (deal-cards 2 pack)]]
+        (vector player cards pack)))
+
+(defn deal-hands [players]
   (let [pack (into [] (range 52))]
-  (deal-cards 2 pack)))
+      (deal-hand players pack)))
 
 (defn suit [card]
   "Gets the suit of a card based on its number in the pack, ordered [H S C D]"
@@ -48,5 +52,5 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (println (str "John got the following cards " (deal-hand "john")))
-  )
+
+  (println (str "Players got the following hands " (apply str(deal-hands ["john" "bob" "edgar"])))))
