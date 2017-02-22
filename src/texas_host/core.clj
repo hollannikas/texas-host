@@ -1,14 +1,14 @@
 (ns texas-host.core
   (:gen-class))
 
-(defn remove-card [card pack]
+(defn remove-item [to-be-removed collection]
   (remove
-    (fn [x] (= x card))
-    pack))
+    (fn [x] (= x to-be-removed))
+    collection))
 
 (defn get-card [pack]
   ( let [card (rand-nth pack)]
-  [card (remove-card card pack)]))
+  [card (remove-item card pack)]))
 
 (defn get-cards [amount cards pack]
   (cond
@@ -19,13 +19,19 @@
 (defn deal-cards [amount pack]
   (get-cards amount [] pack))
 
-(defn deal-hand [players pack]
-    (for [player players :let [[cards pack] (deal-cards 2 pack)]]
-        (vector player cards pack)))
+(defn deal-hands [players pack]
+  (cond
+    (= (count players) 0) [[] pack]
+    :else
+    (let [player (first players)]
+        (let [[hands pack-before] (deal-hands (remove-item player players) pack)]
+            (let [[hand pack-after] (deal-cards 2 pack-before)]
+                (vector (cons (vector player hand) hands) (apply vector pack-after)))))))
 
-(defn deal-hands [players]
+
+(defn deal [players]
   (let [pack (into [] (range 52))]
-      (deal-hand players pack)))
+      (deal-hands players pack)))
 
 (defn suit [card]
   "Gets the suit of a card based on its number in the pack, ordered [H S C D]"
@@ -53,4 +59,4 @@
   "I don't do a whole lot ... yet."
   [& args]
 
-  (println (str "Players got the following hands " (apply str(deal-hands ["john" "bob" "edgar"])))))
+  (println (str "Players got the following hands " (apply str(deal ["john" "bob" "edgar"])))))

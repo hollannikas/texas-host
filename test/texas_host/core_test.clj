@@ -2,9 +2,9 @@
   (:use [midje.sweet :refer :all])
   (:require [texas-host.core :refer :all]))
 
-(fact "`remove-card` removes a card from the pack"
-      (count (remove-card 1 [1 2 3 4])) => 3
-      (some #{1} (remove-card 1 [1 2 3 4])) => falsey)
+(fact "`remove-item` removes a card from the pack"
+      (count (remove-item 1 [1 2 3 4])) => 3
+      (some #{1} (remove-item 1 [1 2 3 4])) => falsey)
 
 (fact "`get-card` gets a card from the pack"
       (let [[card deck] (get-card [1 2 3 4])]
@@ -62,6 +62,13 @@
             (count cards-dealt) => 3
             (count deck-after) => 10
         )))
+
+
+(fact "'deal' deals two cards to all players"
+      (let [[hands pack] (deal (apply str (range 0 10)))]
+            (count hands) => 10
+            (count pack) => 32
+        ))
 
 
 
