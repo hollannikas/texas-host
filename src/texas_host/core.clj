@@ -25,10 +25,10 @@
 (defn suit [card]
   "Gets the suit of a card based on its number in the pack, ordered [H S C D]"
   (cond
-    (<= card 12) "H"
-    (<= card 25) "S"
-    (<= card 38) "C"
-    (<= card 51) "D"
+    (< card 13) "H"
+    (< card 26) "S"
+    (< card 39) "C"
+    (< card 52) "D"
     :else "X"
     ))
 
@@ -44,4 +44,4 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (println (str "John got the following cards " (deal-hand "bert"))))
+  (println (str "John got the following cards " (deal-hand "john"))))
