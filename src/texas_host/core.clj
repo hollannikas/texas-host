@@ -26,16 +26,19 @@
 (defn suit [card]
   "Gets the suit of a card based on its number in the pack, ordered [H S C D]"
   (cond
-    (<= card 12) "H"
-    (<= card 25) "S"
-    (<= card 38) "C"
-    (<= card 51) "D"
+    (< card 13) "H"
+    (< card 26) "S"
+    (< card 39) "C"
+    (< card 52) "D"
     :else "X"
     ))
 
 (defn value [card]
   "Gets the value of a card based on its number in the pack, Ten = T, Ace = A, Jack = J, Queen = Q and King = K"
-  :-)
+  (cond
+    (< card 52) (mod card 13)
+    :else -100
+    ))
 
 
 (defn translate-card [card]
@@ -45,4 +48,5 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (println (str "John got the following cards " (deal-hand "john"))))
+  (println (str "John got the following cards " (deal-hand "john")))
+  )
