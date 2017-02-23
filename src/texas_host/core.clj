@@ -19,19 +19,19 @@
 (defn deal-cards [amount pack]
   (get-cards amount [] pack))
 
-(defn deal-hands [players pack]
+(defn deal-hand [players pack]
   (cond
     (= (count players) 0) [[] pack]
     :else
     (let [player (first players)]
-        (let [[hands pack-before] (deal-hands (remove-item player players) pack)]
+        (let [[hands pack-before] (deal-hand (remove-item player players) pack)]
             (let [[hand pack-after] (deal-cards 2 pack-before)]
                 (vector (cons (vector player hand) hands) (apply vector pack-after)))))))
 
 
 (defn deal [players]
   (let [pack (into [] (range 52))]
-      (deal-hands players pack)))
+  (deal-hand players pack)))
 
 (defn suit [card]
   "Gets the suit of a card based on its number in the pack, ordered [H S C D]"
