@@ -66,9 +66,13 @@
 
 (fact "'deal' deals two cards to all players"
       (let [[hands pack] (deal (apply str (range 0 10)))]
-            (count hands) => 10
-            (count pack) => 32
-        ))
+          (count pack) => 32
+          (count hands) => 10
+          (doseq [[idx hand] (map-indexed vector hands)]
+              (let [[player cards] (split-at 1 (flatten hand))]
+                  (first player) => str idx
+                  (count cards) => 2
+        ))))
 
 
 
