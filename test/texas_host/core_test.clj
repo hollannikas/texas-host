@@ -72,6 +72,8 @@
               (let [[player cards] (split-at 1 (flatten hand))]
                   (first player) => str idx
                   (count cards) => 2
+                  nil => (some (partial = (first cards)) pack)
+                  nil => (some (partial = (second cards)) pack)
         ))))
 
 
